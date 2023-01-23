@@ -36,13 +36,15 @@ public class LibraryAppTest {
         bookService = new BookService(mockBookDAO);
     }
 
-    //AUTHOR TESTS
+    /**
+     * AUTHOR DAO TESTS
+     */
 
     /**
      * getAllAuthors should return all authors.
      */
     @Test
-    public void getAllAuthorsDAOTest(){
+    public void AuthorDAO_getAllAuthorsTest(){
         List<Author> authors = authorDAO.getAllAuthors();
         Author a1 = new Author(1, "jorge luis borges");
         Author a2 = new Author(2, "italo calvino");
@@ -59,20 +61,22 @@ public class LibraryAppTest {
      * Inserting an author should make that author visible when getting all authors.
      */
     @Test
-    public void insertAuthorCheckWithGetAllTest(){
+    public void AuthorDAO_insertAuthorCheckWithGetAllTest(){
         Author a6 = new Author(6, "james joyce");
         authorDAO.insertAuthor(a6);
         List<Author> authors = authorDAO.getAllAuthors();
         Assert.assertTrue(authors.contains(a6));
     }
 
-
+    /**
+     * AUTHOR SERVICE TESTS
+     */
 
     /**
      * When getAllAuthors is called, getAllAuthors should return all the authors retrieved from the mockAuthorDAO.
      */
     @Test
-    public void getAllAuthorsServiceTest(){
+    public void AuthorService_getAllAuthorsServiceTest(){
         List<Author> authors = new ArrayList<>();
         Author a1 = new Author(1, "James Joyce");
         Author a2 = new Author(2, "Leo Tolstoy");
@@ -94,7 +98,7 @@ public class LibraryAppTest {
      * the added author, and the insertAuthor method of authorDAO should have been called at some point.
      */
     @Test
-    public void addAuthorTest(){
+    public void AuthorService_addAuthorTest(){
         Author newAuthor = new Author("James Joyce");
         Author persistedAuthor = new Author(1, "James Joyce");
         Mockito.when(mockAuthorDAO.insertAuthor(newAuthor)).thenReturn(persistedAuthor);
@@ -102,23 +106,16 @@ public class LibraryAppTest {
         Assert.assertEquals(persistedAuthor, actualAuthor);
     }
 
-
-
-    //BOOK TESTS
-
     /**
-     * getAllBooks should return all books.
+     * BOOK DAO TESTS
      */
-    @Test
-    public void getAllBooksTest(){
-        List<Book> books = bookDAO.getAllBooks();
-    }
+
     /**
      * getBookByIsbn should return a Book object where the fields of the object (int isbn, int author_id,
      * String title, int copies_available) match the data in the database record.
      */
     @Test
-    public void getBookByIsbnTest(){
+    public void BookDAO_getBookByIsbnTest(){
         Book b1 = new Book(100, 1, "ficciones", 2);
         Book book = bookDAO.getBookByIsbn(100);
         Assert.assertEquals(b1, book);
@@ -127,7 +124,7 @@ public class LibraryAppTest {
      * Inserting a book should make that book visible when getting all books.
      */
     @Test
-    public void insertBookCheckWithGetAllTest(){
+    public void BookDAO_insertBookCheckWithGetAllTest(){
         Book b1 = new Book(108, 1,"cosmicomics", 1);
         bookDAO.insertBook(b1);
         List<Book> books = bookDAO.getAllBooks();
@@ -137,18 +134,19 @@ public class LibraryAppTest {
      * Inserting a book should make the BookDAO able to retrieve it by its ISBN.
      */
     @Test
-    public void insertBookCheckWithGetByIdTest(){
+    public void BookDAO_insertBookCheckWithGetByIdTest(){
         Book b1 = new Book(108, 1,"cosmicomics", 1);
         bookDAO.insertBook(b1);
         Book book = bookDAO.getBookByIsbn(108);
         Assert.assertEquals(b1, book);
     }
+
     /**
      * Getting all available books should retrieve all books with copies_available over 0, but should not return
      * any other books.
      */
     @Test
-    public void getBooksWithBookCountOverZeroTest(){
+    public void BookDAO_getBooksWithBookCountOverZeroTest(){
         Book b0 = new Book(100, 1, "ficciones", 2);
         Book b1 = new Book(102, 2, "mr palomar", 1);
         Book b2 = new Book(103, 2, "invisible cities", 3);
@@ -164,10 +162,14 @@ public class LibraryAppTest {
     }
 
     /**
+     * BOOK SERVICE TESTS
+     */
+
+    /**
      * When getAllBooks is called, all books should be retrieved from the database using the BookDAO.
      */
     @Test
-    public void getAllBooksTest1(){
+    public void bookService_getAllBooksTest1(){
         List<Book> bookList = new ArrayList<Book>();
         Book b1 = new Book(101, 1, "Ulysses", 2);
         Book b2 = new Book(102, 1, "Finnegan's Wake", 0);
@@ -191,7 +193,7 @@ public class LibraryAppTest {
      * the added book, and the insertBook method of authorDAO should have been called at some point.
      */
     @Test
-    public void addBookVerifyNotNullOnSuccessfulAddTest(){
+    public void bookService_addBookVerifyNotNullOnSuccessfulAddTest(){
         List<Book> bookList = new ArrayList<Book>();
         Book b1 = new Book(101, 1, "Ulysses", 2);
         Book b2 = new Book(102, 1, "Finnegan's Wake", 0);
@@ -211,7 +213,7 @@ public class LibraryAppTest {
      * and the insertBook method of BookDAO should not have been called.
      */
     @Test
-    public void addBookVerifyNullOnUnsuccessfulAdd(){
+    public void bookService_addBookVerifyNullOnUnsuccessfulAdd(){
         List<Book> bookList = new ArrayList<Book>();
         Book b1 = new Book(101, 1, "Ulysses", 2);
         Book b2 = new Book(102, 1, "Finnegan's Wake", 0);
@@ -229,7 +231,7 @@ public class LibraryAppTest {
      * When getAllAvailableBooks is called, all books in the database with copies_available over 0 should be returned.
      */
     @Test
-    public void getAllAvailableBooksTest(){
+    public void setBookService_getAllAvailableBooksTest(){
         List<Book> bookList = new ArrayList<>();
         List<Book> bookListOverZero = new ArrayList<>();
         Book b1 = new Book(101, 1, "Ulysses", 2);
