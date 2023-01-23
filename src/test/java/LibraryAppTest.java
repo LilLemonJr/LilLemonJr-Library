@@ -111,6 +111,14 @@ public class LibraryAppTest {
      */
 
     /**
+     * getAllBooks should return all books.
+     */
+    @Test
+    public void getAllBooksTest(){
+        List<Book> books = bookDAO.getAllBooks();
+    }
+
+    /**
      * getBookByIsbn should return a Book object where the fields of the object (int isbn, int author_id,
      * String title, int copies_available) match the data in the database record.
      */
