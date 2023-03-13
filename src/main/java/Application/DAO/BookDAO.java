@@ -25,7 +25,7 @@ public class BookDAO {
     /**
      * TODO: retrieve all books from the Book table.
      * You only need to change the sql String.
-     * @return all Authors.
+     * @return all Books.
      */
     public List<Book> getAllBooks(){
         Connection connection = ConnectionUtil.getConnection();
@@ -49,9 +49,9 @@ public class BookDAO {
     }
 
     /**
-     * TODO: retrieve an book from the Book table, identified by its id.
+     * TODO: retrieve a book from the Book table, identified by its isbn.
      * You only need to change the sql String and leverage PreparedStatement's setString and setInt methods.
-     * @return a book identified by id.
+     * @return a book identified by isbn.
      */
     public Book getBookByIsbn(int isbn){
         Connection connection = ConnectionUtil.getConnection();
@@ -77,7 +77,7 @@ public class BookDAO {
     }
 
     /**
-     * TODO: insert an book into the Book table.
+     * TODO: insert a book into the Book table.
      * Unlike some of the other insert problems, the primary key here will be provided by the client as part of the
      * Book object. Given the specific nature of an ISBN as both a numerical organization of books outside of this
      * database, and as a primary key, it would make sense for the client to submit an ISBN when submitting a book.
@@ -100,7 +100,7 @@ public class BookDAO {
         return null;
     }
     /**
-     * TODO: retrieve all books from the Book table with a book_count over zero.
+     * TODO: retrieve all books from the Book table with copies_available over zero.
      * You only need to change the sql String and leverage PreparedStatement's setString and setInt methods.
      * @returnall books with book count > 0.
      */
